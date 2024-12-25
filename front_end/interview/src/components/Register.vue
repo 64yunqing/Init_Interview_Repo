@@ -40,18 +40,24 @@ export default {
   methods: {
     async handleRegister() {
       try {
+        console.log('Sending registration request...');
         const response = await fetch('http://localhost:3000/auth/register', {
           method: 'POST',
+          credentials: 'include',
+          mode: 'cors',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
           },
           body: JSON.stringify({
             username: this.username,
             password: this.password
           })
         });
-
+        
+        console.log('Response status:', response.status);
         const data = await response.json();
+        console.log('Response data:', data);
 
         if (!response.ok) {
           throw new Error(data.message || '注册失败');
@@ -60,7 +66,8 @@ export default {
         // 注册成功后跳转到登录页
         this.$router.push('/login');
       } catch (err) {
-        this.error = err.message;
+        console.error('Registration error:', err);
+        this.error = err.message || '注册过程中发生错误';
       }
     }
   }
