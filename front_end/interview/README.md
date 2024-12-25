@@ -1,5 +1,9 @@
-# Vue 3 + Vite
+# 说明文档
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 利用了vite构建的vue项目
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+1.创建了router路由管理页面状态
+2.使用路由守卫拦截未登录用户进行登录
+3.使用cors跨域解决跨域问题
+4.使用token来验证用户登录状态
+6.与后端数据库进行数据校验
