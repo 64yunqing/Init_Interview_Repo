@@ -1,5 +1,11 @@
 const request = require('supertest');
-const app = require('./app.js'); // 导入你的 Express 应用
+const app = require('./app.js');
+const { syncDatabase } = require('./data/db.js');
+
+// 在所有测试之前同步数据库
+beforeAll(async () => {
+    await syncDatabase();
+});
 
 describe('Auth API', () => {
     // 测试用户注册
