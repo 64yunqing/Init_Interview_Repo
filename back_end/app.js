@@ -1,9 +1,12 @@
 const express = require('express');
 const authRoutes = require('./routes/authRoutes.js');
 const { sequelize, syncDatabase } = require('./data/db.js');
-
+const db = require('./data/db.js');
 const app = express();
 
+db.syncDatabase()
+  .then(() => console.log('Database connected.'))
+  .catch(err => console.error('Unable to connect to the database:', err));
 // 中间件
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -22,6 +25,10 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'An error occurred', error: err.message });
 });
 
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
 // 确保在测试之前同步数据库
 const initializeApp = async () => {
     try {
